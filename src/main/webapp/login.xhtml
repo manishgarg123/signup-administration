@@ -2,6 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/WEB-INF/templates/container-app.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="topbar">
@@ -15,11 +16,26 @@
     </ui:define>
 
     <ui:define name="submenu">
-        submenu
+        Login
     </ui:define>
 
     <ui:define name="content">
-        content
+    <h:form prependId="false">
+        <h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="username" value="Username: *" />
+			<h:inputText value="#{userName}" 
+					id="username" required="true" label="username" requiredMessage="Please enter username."/>
+			
+			<h:outputLabel for="password" value="Password: * " />
+			<h:inputSecret value="#{password}" 
+					id="password" required="true" label="password" requiredMessage="Please enter password."/>
+			
+			<f:facet name="footer">
+				<h:commandButton value="Login"  id="login" action="#{login.login}" />
+					  
+			</f:facet>
+		</h:panelGrid>
+	</h:form>
     </ui:define>
 
     <ui:define name="sidebar">
