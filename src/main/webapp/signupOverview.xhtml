@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.prime.com.tr/ui"
+   template="/WEB-INF/templates/container-app.xhtml">
+   <ui:define name="topbar">
+        <ui:decorate template="/WEB-INF/templates/topbar.xhtml">
+            <a class="brand" href="#"><h:graphicImage name="logo.png" library="images"/></a>
+        </ui:decorate>
+    </ui:define>
+
+    <ui:define name="header">
+        header
+    </ui:define>
+
+    <ui:define name="submenu">
+        Sign up Overview
+    </ui:define>
+
+   <ui:define name="content">
+   <h:form prependId="false">
+   <p:tabView> 
+   
+   		<!-- Tab contents for all registered request pending for approval-->
+   		<p:tab id="newRequest" title="New Requests">  
+	   		<h:panelGroup rendered="#{empty newMembers}">
+	         <em>No registered members.</em>
+	      	</h:panelGroup>
+      		<h:dataTable var="_member" value="#{newMembers}" rendered="#{not empty newMembers}">
+		         <h:column>
+		            <f:facet name="header">Id</f:facet>
+		                #{_member.id}
+		            </h:column>
+		         <h:column>
+		            <f:facet name="header">Name</f:facet>
+		                #{_member.name}
+		            </h:column>
+		         <h:column>
+		            <f:facet name="header">Email</f:facet>
+		                #{_member.email}
+		            </h:column>
+		         <h:column>
+		            <f:facet name="header">Phone #</f:facet>
+		                #{_member.phoneNumber}
+		            </h:column>
+		         <h:column>
+		            <f:facet name="header">REST URL</f:facet>
+		            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+		         </h:column>
+		         <f:facet name="footer">
+		                REST URL for all members: <a
+		               href="#{request.contextPath}/rest/members">/rest/members</a>
+		         </f:facet>
+		         <h:column>
+		            <f:facet name="header">Action</f:facet>
+		            	<h:commandLink value="Approve" action="#{memberRegistration.approve}" immediate="true">
+		            		<f:setPropertyActionListener target="#{memberRegistration.newMember}" value="#{_member}"></f:setPropertyActionListener>
+						</h:commandLink>
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Action</f:facet>
+		            	<h:commandLink value="Reject" action="#{memberRegistration.reject}" immediate="true">
+		            		<f:setPropertyActionListener target="#{memberRegistration.newMember}" value="#{_member}"></f:setPropertyActionListener>
+						</h:commandLink>
+		         </h:column>
+      		</h:dataTable>
+   		</p:tab>
+   		
+   		<!-- Tab contents for all displaying all approved request-->
+   		<p:tab id="approvedRequest" title="Approved Requests">  
+	   		<h:panelGroup rendered="#{empty approvedMembers}">
+	         <em>No approved member.</em>
+	      	</h:panelGroup>
+      		<h:dataTable var="_member" value="#{approvedMembers}"
+         		rendered="#{not empty approvedMembers}">
+         	<h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_member.id}
+            </h:column>
+	         <h:column>
+	            <f:facet name="header">Name</f:facet>
+	                #{_member.name}
+	            </h:column>
+	         <h:column>
+	            <f:facet name="header">Email</f:facet>
+	                #{_member.email}
+	         </h:column>
+	         <h:column>
+	            <f:facet name="header">Phone #</f:facet>
+	                #{_member.phoneNumber}
+	            </h:column>
+	         <h:column>
+	            <f:facet name="header">REST URL</f:facet>
+	            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+	         </h:column>
+	         <f:facet name="footer">
+	                REST URL for all members: <a
+	               href="#{request.contextPath}/rest/members">/rest/members</a>
+	         </f:facet>
+      	</h:dataTable>
+   	</p:tab>
+   	
+   		<!-- Tab contents for all displaying all rejected request-->
+   	<p:tab id="deniedRequest" title="Denied Requests">  
+   		<h:panelGroup rendered="#{empty deniedMembers}">
+         	<em>No denied members.</em>
+      	</h:panelGroup>
+      	<h:dataTable var="_member" value="#{deniedMembers}"
+         	rendered="#{not empty deniedMembers}">
+         	<h:column>
+            	<f:facet name="header">Id</f:facet>
+                #{_member.id}
+            </h:column>
+	        <h:column>
+	           <f:facet name="header">Name</f:facet>
+	               #{_member.name}
+	           </h:column>
+	        <h:column>
+	           <f:facet name="header">Email</f:facet>
+	               #{_member.email}
+	           </h:column>
+	        <h:column>
+	           <f:facet name="header">Phone #</f:facet>
+	               #{_member.phoneNumber}
+	           </h:column>
+	        <h:column>
+	           <f:facet name="header">REST URL</f:facet>
+	           <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+	        </h:column>
+	        <f:facet name="footer">
+	               REST URL for all members: <a
+	              href="#{request.contextPath}/rest/members">/rest/members</a>
+	        </f:facet>
+      	</h:dataTable>
+   	</p:tab>
+   	</p:tabView>
+    </h:form>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        sidebar
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+</ui:composition>

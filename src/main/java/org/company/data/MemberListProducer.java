@@ -1,6 +1,10 @@
 package org.company.data;
 
 import org.company.model.Member;
+import org.company.util.IConstant;
+import org.company.util.MemberRegistrationCache;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -44,5 +48,26 @@ public class MemberListProducer {
       // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
       criteria.select(member).orderBy(cb.asc(member.get("name")));
       members = em.createQuery(criteria).getResultList();
+   }
+   
+   @Produces
+   @Named
+   public List<Member> getNewMembers() {
+	   // return members from cache containing requests pending for approval
+	   return (ArrayList)MemberRegistrationCache.getCache().get(IConstant.NEW_REGISTRATION_CACHE);
+   }
+   
+   @Produces
+   @Named
+   public List<Member> getApprovedMembers() {
+	   // return list of approved members from cache
+	   return (ArrayList)MemberRegistrationCache.getCache().get(IConstant.APPROVED_CACHE);
+   }
+   
+   @Produces
+   @Named
+   public List<Member> getDeniedMembers() {
+	   // return list of rejected members from cache
+	   return (ArrayList)MemberRegistrationCache.getCache().get(IConstant.REJECTED_CACHE);
    }
 }

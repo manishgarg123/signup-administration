@@ -20,38 +20,36 @@ import javax.servlet.http.HttpSession;
 
 import org.company.model.Member;
 
-// The @Stateful annotation eliminates the need for manual transaction demarcation
+import com.sun.xml.internal.bind.v2.TODO;
+
 @Stateful
-// The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
-// EL name
-// Read more about the @Model stereotype in this FAQ:
-// http://sfwk.org/Documentation/WhatIsThePurposeOfTheModelAnnotation
-//@Named
-//@SessionScoped
 @Model
+/**
+ * This class is used for authenticating and authorising user's login request.
+ */
 public class Login {
 
    @Inject
    private Logger log;
 
-   @Inject
-   private EntityManager em;
-
    private String userName;
    private String password;
    private String userPrincipal;
    
-   public void login() throws Exception{
-	   System.out.println("login() logObj="+log);
-	   System.out.println("inside login method userName="+userName+", password="+password);
+   /**
+    * log-in user request.
+    * @return	success in case login is successful.
+    * @throws Exception
+    */
+   public String login() throws Exception{
+	   log.log(Level.FINE, "Login attempt for user " + userName);
 	   boolean loggedIn = false;
-	   
-
+	   // TODO: authentication and authorization
+	   return "success";
    }
    
    @PostConstruct
    public void initNewMember() {
-	   System.out.println("initNewMember");
 	   userName = "";
 	   password = "";
 	   userPrincipal = "";
@@ -61,9 +59,7 @@ public class Login {
 		//
 	}
 	public String getUserPrincipal() {
-	
 	        FacesContext context = FacesContext.getCurrentInstance();
-	
 	        ExternalContext externalContext = context.getExternalContext();
 	        userPrincipal = externalContext.getUserPrincipal() != null ? externalContext.getUserPrincipal().toString() : "null";
 	        return userPrincipal;
@@ -72,26 +68,18 @@ public class Login {
 	@Produces
 	@Named
 	public String getUserName() {
-		System.out.println("inside getUserName method");
-		log.log(Level.ALL, "inside getUserName method");
 		return userName;
 	}
 	public void setUserName(String userName) {
-		System.out.println("inside setUserName method");
-		log.log(Level.ALL, "inside setUserName method");
 		this.userName = userName;
 	}
 	
 	@Produces
 	@Named
 	public String getPassword() {
-		System.out.println("inside getPassword method");
-		log.log(Level.ALL, "inside getPassword method");
 		return password;
 	}
 	public void setPassword(String password) {
-		System.out.println( "inside setPassword method");
-		log.log(Level.ALL, "inside setPassword method");
 		this.password = password;
 	}
 }

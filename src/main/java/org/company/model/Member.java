@@ -43,7 +43,7 @@ public class Member implements Serializable {
    @Digits(fraction = 0, integer = 12)
    @Column(name = "phone_number")
    private String phoneNumber;
-
+   
    public Long getId() {
       return id;
    }
@@ -75,4 +75,5 @@ public class Member implements Serializable {
    public void setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
    }
+
 }
