@@ -13,7 +13,7 @@ import org.infinispan.manager.EmbeddedCacheManager;
 public class MemberRegistrationCache {
 
 	@Inject
-	private static Logger log;
+	private Logger log;
 	
 	static EmbeddedCacheManager manager;
 	static Cache cache;
@@ -40,7 +40,6 @@ public class MemberRegistrationCache {
 			}
 		}
 		catch(IOException e){
-			log.log(Level.SEVERE, e.getMessage(), e);
 			e.printStackTrace();
 			manager = new DefaultCacheManager();
 		}

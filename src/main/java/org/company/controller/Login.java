@@ -22,7 +22,6 @@ import org.company.model.Member;
 
 import com.sun.xml.internal.bind.v2.TODO;
 
-@Stateful
 @Model
 /**
  * This class is used for authenticating and authorising user's login request.
@@ -65,7 +64,6 @@ public class Login {
 	        return userPrincipal;
 	}
 	
-	@Produces
 	@Named
 	public String getUserName() {
 		return userName;
@@ -74,7 +72,6 @@ public class Login {
 		this.userName = userName;
 	}
 	
-	@Produces
 	@Named
 	public String getPassword() {
 		return password;
