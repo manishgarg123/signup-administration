@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.prime.com.tr/ui"
+   template="/WEB-INF/templates/container-app.xhtml">
+   
+   <ui:define name="topbar">
+        <ui:decorate template="/WEB-INF/templates/topbar.xhtml">
+            <a class="brand" href="#"><h:graphicImage name="logo.png" library="images"/></a>
+        </ui:decorate>
+    </ui:define>
+
+    <ui:define name="header">
+        <h1>Sign up Details</h1>
+    </ui:define>
+
+   <ui:define name="content">
+   <h:form prependId="false">
+   		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="First Name" />
+			<h:outputText value="#{signupRequest.firstName}"/>
+			
+			<h:outputLabel value="Last Name" />
+			<h:outputText value="#{signupRequest.lastName}"/>
+			
+			<h:outputLabel value="Email" />
+			<h:outputText value="#{signupRequest.email}"/>
+			
+			<h:outputLabel value="Company" />
+			<h:outputText value="#{signupRequest.company}"/>
+			
+			<h:outputLabel value="Refered By" />
+			<h:outputText value="#{signupRequest.referer}"/>
+			
+			<h:outputLabel value="Timestamp" />
+			<h:outputText value="#{signupRequest.datetime}"/>
+			
+			<f:facet name="footer" align="center">
+				<h:commandButton value="Approve"  id="approve" action="#{signupRequestController.approve}" rendered="#{(signupRequest.status == 'New') or (signupRequest.status == 'Reject')}"/>
+		        <h:commandButton value="Reject"  id="reject" action="#{signupRequestController.reject}" rendered="#{signupRequest.status == 'New'}"/>
+			</f:facet>
+		</h:panelGrid>
+    </h:form>
+    </ui:define>
+
+    <ui:define name="sidebar"/>
+
+</ui:composition>
