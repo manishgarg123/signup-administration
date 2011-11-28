@@ -24,28 +24,48 @@
          <table>
             <tr>
                <th style="text-align: right;"><h:outputLabel
-                     for="name" value="Name:" /></th>
-               <td><h:inputText id="name" value="#{newMember.name}" />
+                     for="name" value="First Name:" /></th>
+               <td><h:inputText id="name" value="#{signupRequestController.signupRequest.firstName}" />
                   <h:message for="name" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="lastname" value="Last Name:" /></th>
+               <td><h:inputText id="lastname" value="#{signupRequestController.signupRequest.lastName}" />
+                  <h:message for="lastname" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="email" value="Email:" /></th>
                <td><h:inputText id="email"
-                     value="#{newMember.email}" /> <h:message
+                     value="#{signupRequestController.signupRequest.email}" /> <h:message
                      for="email" errorClass="invalid" /></td>
+            </tr>
+             <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="company" value="Company:" /></th>
+               <td><h:inputText id="company"
+                     value="#{signupRequestController.signupRequest.company}" /> <h:message
+                     for="company" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="company" value="Referer:" /></th>
+               <td><h:inputText id="referer"
+                     value="#{signupRequestController.signupRequest.referer}" /> <h:message
+                     for="referer" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="phoneNumber" value="Phone #:" /></th>
                <td><h:inputText id="phoneNumber"
-                     value="#{newMember.phoneNumber}" /> <h:message
+                     value="#{signupRequestController.signupRequest.phoneNumber}" /> <h:message
                      for="phoneNumber" errorClass="invalid" /></td>
             </tr>
          </table>
          <p>
             <h:commandButton id="register"
-               action="#{memberRegistration.register}" value="Register" />
+               action="#{signupRequestController.register}" value="Register" />
             <h:outputText value=" Registered!"
                rendered="#{facesContext.postback and empty facesContext.messageList}"
                style="color: green;" />
@@ -53,12 +73,6 @@
       </h:form>
     </ui:define>
 
-    <ui:define name="sidebar">
-        sidebar
-    </ui:define>
-
-    <ui:define name="footer">
-        footer
-    </ui:define>
+    <ui:define name="sidebar"/>
    
 </ui:composition>

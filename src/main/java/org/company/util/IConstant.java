@@ -8,4 +8,8 @@ public interface IConstant {
 	
 	public String CACHE_CONFIG_FILE = "config-file.xml";
 	public String CACHE_STORE = "CacheStore";
+	
+	public String APPROVED_STATUS = "Approved";
+	public String REJECTED_STATUS = "Reject";
+	public String NEW_STATUS = "New";
 }

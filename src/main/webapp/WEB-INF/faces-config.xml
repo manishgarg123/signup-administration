@@ -17,4 +17,18 @@
        <to-view-id>/signupOverview.xhtml</to-view-id>
    </navigation-case>
 </navigation-rule>
+<navigation-rule>
+   <from-view-id>signupOverview.xhtml</from-view-id>
+   <navigation-case>
+       <from-outcome>success</from-outcome>
+       <to-view-id>/signupDetail.xhtml</to-view-id>
+   </navigation-case>
+</navigation-rule>
+<navigation-rule>
+   <from-view-id>signupDetail.xhtml</from-view-id>
+   <navigation-case>
+       <from-outcome>success</from-outcome>
+       <to-view-id>/signupOverview.xhtml</to-view-id>
+   </navigation-case>
+</navigation-rule>
 </faces-config>

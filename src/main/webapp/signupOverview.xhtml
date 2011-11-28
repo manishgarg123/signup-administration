@@ -5,6 +5,7 @@
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.prime.com.tr/ui"
    template="/WEB-INF/templates/container-app.xhtml">
+   
    <ui:define name="topbar">
         <ui:decorate template="/WEB-INF/templates/topbar.xhtml">
             <a class="brand" href="#"><h:graphicImage name="logo.png" library="images"/></a>
@@ -12,57 +13,48 @@
     </ui:define>
 
     <ui:define name="header">
-        header
+        <h1>Sign up Overview</h1>
     </ui:define>
 
-    <ui:define name="submenu">
+    <!--<ui:define name="submenu">
         Sign up Overview
-    </ui:define>
+    </ui:define>-->
 
    <ui:define name="content">
    <h:form prependId="false">
+   <p:messages showSummary="true" autoUpdate="true"/>
    <p:tabView> 
    
    		<!-- Tab contents for all registered request pending for approval-->
    		<p:tab id="newRequest" title="New Requests">  
-	   		<h:panelGroup rendered="#{empty newMembers}">
-	         <em>No registered members.</em>
+	   		<h:panelGroup rendered="#{empty newSignupRequests}">
+	         <em>No registered Signup Requests.</em>
 	      	</h:panelGroup>
-      		<h:dataTable var="_member" value="#{newMembers}" rendered="#{not empty newMembers}">
+      		<h:dataTable var="_signupRequest" value="#{newSignupRequests}" rendered="#{not empty newSignupRequests}">
 		         <h:column>
-		            <f:facet name="header">Id</f:facet>
-		                #{_member.id}
-		            </h:column>
+		            <f:facet name="header">First Name</f:facet>
+		                #{_signupRequest.firstName}
+		         </h:column>
 		         <h:column>
-		            <f:facet name="header">Name</f:facet>
-		                #{_member.name}
-		            </h:column>
+		            <f:facet name="header">Last Name</f:facet>
+		                #{_signupRequest.lastName}
+		         </h:column>
 		         <h:column>
 		            <f:facet name="header">Email</f:facet>
-		                #{_member.email}
-		            </h:column>
+		                #{_signupRequest.email}
+		         </h:column>
 		         <h:column>
 		            <f:facet name="header">Phone #</f:facet>
-		                #{_member.phoneNumber}
-		            </h:column>
-		         <h:column>
-		            <f:facet name="header">REST URL</f:facet>
-		            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
-		         </h:column>
-		         <f:facet name="footer">
-		                REST URL for all members: <a
-		               href="#{request.contextPath}/rest/members">/rest/members</a>
-		         </f:facet>
-		         <h:column>
-		            <f:facet name="header">Action</f:facet>
-		            	<h:commandLink value="Approve" action="#{memberRegistration.approve}" immediate="true">
-		            		<f:setPropertyActionListener target="#{memberRegistration.newMember}" value="#{_member}"></f:setPropertyActionListener>
-						</h:commandLink>
+		                #{_signupRequest.phoneNumber}
 		         </h:column>
 		         <h:column>
-		            <f:facet name="header">Action</f:facet>
-		            	<h:commandLink value="Reject" action="#{memberRegistration.reject}" immediate="true">
-		            		<f:setPropertyActionListener target="#{memberRegistration.newMember}" value="#{_member}"></f:setPropertyActionListener>
+		            <f:facet name="header">Company</f:facet>
+		                #{_signupRequest.company}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">View detail</f:facet>
+		            	<h:commandLink value="View" action="#{signupRequestController.showSignupDetail}" immediate="true">
+		            		<f:setPropertyActionListener target="#{signupRequestController.signupRequest}" value="#{_signupRequest}"></f:setPropertyActionListener>
 						</h:commandLink>
 		         </h:column>
       		</h:dataTable>
@@ -70,80 +62,76 @@
    		
    		<!-- Tab contents for all displaying all approved request-->
    		<p:tab id="approvedRequest" title="Approved Requests">  
-	   		<h:panelGroup rendered="#{empty approvedMembers}">
-	         <em>No approved member.</em>
+	   		<h:panelGroup rendered="#{empty approvedSignupRequests}">
+	         <em>No approved signup Request.</em>
 	      	</h:panelGroup>
-      		<h:dataTable var="_member" value="#{approvedMembers}"
-         		rendered="#{not empty approvedMembers}">
-         	<h:column>
-            <f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
-	         <h:column>
-	            <f:facet name="header">Name</f:facet>
-	                #{_member.name}
-	            </h:column>
-	         <h:column>
-	            <f:facet name="header">Email</f:facet>
-	                #{_member.email}
-	         </h:column>
-	         <h:column>
-	            <f:facet name="header">Phone #</f:facet>
-	                #{_member.phoneNumber}
-	            </h:column>
-	         <h:column>
-	            <f:facet name="header">REST URL</f:facet>
-	            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
-	         </h:column>
-	         <f:facet name="footer">
-	                REST URL for all members: <a
-	               href="#{request.contextPath}/rest/members">/rest/members</a>
-	         </f:facet>
-      	</h:dataTable>
+         	<h:dataTable var="_signupRequest" value="#{approvedSignupRequests}" rendered="#{not empty approvedSignupRequests}">
+		         <h:column>
+		            <f:facet name="header">First Name</f:facet>
+		                #{_signupRequest.firstName}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Last Name</f:facet>
+		                #{_signupRequest.lastName}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Email</f:facet>
+		                #{_signupRequest.email}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Phone #</f:facet>
+		                #{_signupRequest.phoneNumber}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Company</f:facet>
+		                #{_signupRequest.company}
+		         </h:column>
+		         <h:column>
+						<f:facet name="header">View detail</f:facet>
+		            	<h:commandLink value="View" action="#{signupRequestController.showSignupDetail}" immediate="true">
+		            		<f:setPropertyActionListener target="#{signupRequestController.signupRequest}" value="#{_signupRequest}"></f:setPropertyActionListener>
+						</h:commandLink>
+		         </h:column>
+      		</h:dataTable>
    	</p:tab>
    	
    		<!-- Tab contents for all displaying all rejected request-->
    	<p:tab id="deniedRequest" title="Denied Requests">  
-   		<h:panelGroup rendered="#{empty deniedMembers}">
-         	<em>No denied members.</em>
+   		<h:panelGroup rendered="#{empty deniedSignupRequests}">
+         	<em>No denied signup request.</em>
       	</h:panelGroup>
-      	<h:dataTable var="_member" value="#{deniedMembers}"
-         	rendered="#{not empty deniedMembers}">
-         	<h:column>
-            	<f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
-	        <h:column>
-	           <f:facet name="header">Name</f:facet>
-	               #{_member.name}
-	           </h:column>
-	        <h:column>
-	           <f:facet name="header">Email</f:facet>
-	               #{_member.email}
-	           </h:column>
-	        <h:column>
-	           <f:facet name="header">Phone #</f:facet>
-	               #{_member.phoneNumber}
-	           </h:column>
-	        <h:column>
-	           <f:facet name="header">REST URL</f:facet>
-	           <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
-	        </h:column>
-	        <f:facet name="footer">
-	               REST URL for all members: <a
-	              href="#{request.contextPath}/rest/members">/rest/members</a>
-	        </f:facet>
-      	</h:dataTable>
+        <h:dataTable var="_signupRequest" value="#{deniedSignupRequests}" rendered="#{not empty deniedSignupRequests}">
+		         <h:column>
+		            <f:facet name="header">First Name</f:facet>
+		                #{_signupRequest.firstName}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Last Name</f:facet>
+		                #{_signupRequest.lastName}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Email</f:facet>
+		                #{_signupRequest.email}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Phone #</f:facet>
+		                #{_signupRequest.phoneNumber}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">Company</f:facet>
+		                #{_signupRequest.company}
+		         </h:column>
+		         <h:column>
+		            <f:facet name="header">View</f:facet>
+		            	<h:commandLink value="View detail" action="#{signupRequestController.showSignupDetail}" immediate="true">
+		            		<f:setPropertyActionListener target="#{signupRequestController.signupRequest}" value="#{_signupRequest}"></f:setPropertyActionListener>
+						</h:commandLink>
+		         </h:column>
+      		</h:dataTable>
    	</p:tab>
    	</p:tabView>
     </h:form>
     </ui:define>
 
-    <ui:define name="sidebar">
-        sidebar
-    </ui:define>
-
-    <ui:define name="footer">
-        footer
-    </ui:define>
+    <ui:define name="sidebar"/>
 </ui:composition>
